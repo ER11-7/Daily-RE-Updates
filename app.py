@@ -29,14 +29,21 @@ def save_data(df):
     df.to_csv(CSV_FILE, index=False)
 
 def fetch_latest_news(existing_df):
-    """Fetches RSS feeds and appends ONLY new items."""
+    # --- UPDATED RSS FEEDS DICTIONARY ---
     rss_feeds = {
-        "Solar": "https://news.google.com/rss/search?q=solar+energy+when:1d&hl=en-US&gl=US&ceid=US:en",
-        "Wind": "https://news.google.com/rss/search?q=wind+energy+when:1d&hl=en-US&gl=US&ceid=US:en",
-        "Storage": "https://news.google.com/rss/search?q=battery+storage+when:1d&hl=en-US&gl=US&ceid=US:en",
-        "Hydrogen": "https://news.google.com/rss/search?q=green+hydrogen+when:1d&hl=en-US&gl=US&ceid=US:en",
-        "Mfg": "https://news.google.com/rss/search?q=solar+manufacturing+when:1d&hl=en-US&gl=US&ceid=US:en",
-        "India Policy": "https://news.google.com/rss/search?q=MNRE+OR+SECI+when:1d&hl=en-IN&gl=IN&ceid=IN:en"
+        "Solar": "https://news.google.com/rss/search?q=solar+energy+OR+photovoltaic+OR+%22solar+power%22+when:1d&hl=en-US&gl=US&ceid=US:en",
+        
+        "Wind": "https://news.google.com/rss/search?q=%22wind+energy%22+OR+%22wind+power%22+OR+%22offshore+wind%22+when:1d&hl=en-US&gl=US&ceid=US:en",
+        
+        "Storage": "https://news.google.com/rss/search?q=%22battery+storage%22+OR+%22energy+storage+system%22+OR+BESS+OR+%22pumped+hydro%22+when:1d&hl=en-US&gl=US&ceid=US:en",
+        
+        "Hydrogen": "https://news.google.com/rss/search?q=%22green+hydrogen%22+OR+%22clean+hydrogen%22+OR+%22green+ammonia%22+OR+electrolyzer+when:1d&hl=en-US&gl=US&ceid=US:en",
+        
+        # UPDATED: Captures Exports, Trade, ALMM, PLI
+        "Manufacturing": "https://news.google.com/rss/search?q=%22solar+manufacturing%22+OR+%22PV+manufacturing%22+OR+%22solar+module+production%22+OR+%22solar+exports%22+OR+ALMM+OR+PLI+OR+%22basic+customs+duty%22+when:1d&hl=en-US&gl=US&ceid=US:en",
+        
+        # UPDATED: Captures Tenders, Auctions, Power Grid, Discoms
+        "India Policy": "https://news.google.com/rss/search?q=MNRE+OR+SECI+OR+%22Power+Grid%22+OR+Transmission+OR+Tariff+OR+Discom+OR+%22Electricity+Authority%22+OR+Tender+OR+Auction+OR+Procurement+OR+PPA+when:1d&hl=en-IN&gl=IN&ceid=IN:en"
     }
     
     new_items = []
