@@ -29,21 +29,20 @@ def save_data(df):
     df.to_csv(CSV_FILE, index=False)
 
 def fetch_latest_news(existing_df):
-    # --- UPDATED RSS FEEDS DICTIONARY ---
+   # --- STRICT MODE RSS FEEDS ---
     rss_feeds = {
-        "Solar": "https://news.google.com/rss/search?q=solar+energy+OR+photovoltaic+OR+%22solar+power%22+when:1d&hl=en-US&gl=US&ceid=US:en",
+        "Solar": "https://news.google.com/rss/search?q=(solar+energy+OR+photovoltaic+OR+solar+power)+-oil+-gas+-coal+-nuclear+-shares+when:1d&hl=en-US&gl=US&ceid=US:en",
         
-        "Wind": "https://news.google.com/rss/search?q=%22wind+energy%22+OR+%22wind+power%22+OR+%22offshore+wind%22+when:1d&hl=en-US&gl=US&ceid=US:en",
+        "Wind": "https://news.google.com/rss/search?q=(wind+energy+OR+wind+power+OR+offshore+wind)+-weather+-storm+-oil+-gas+-coal+when:1d&hl=en-US&gl=US&ceid=US:en",
         
-        "Storage": "https://news.google.com/rss/search?q=%22battery+storage%22+OR+%22energy+storage+system%22+OR+BESS+OR+%22pumped+hydro%22+when:1d&hl=en-US&gl=US&ceid=US:en",
+        "Storage": "https://news.google.com/rss/search?q=(battery+storage+OR+energy+storage+system+OR+BESS+OR+pumped+hydro)+-mobile+-phone+-car+-scooter+when:1d&hl=en-US&gl=US&ceid=US:en",
         
-        "Hydrogen": "https://news.google.com/rss/search?q=%22green+hydrogen%22+OR+%22clean+hydrogen%22+OR+%22green+ammonia%22+OR+electrolyzer+when:1d&hl=en-US&gl=US&ceid=US:en",
+        "Hydrogen": "https://news.google.com/rss/search?q=(green+hydrogen+OR+clean+hydrogen+OR+green+ammonia+OR+electrolyzer)+-oil+-gas+-coal+when:1d&hl=en-US&gl=US&ceid=US:en",
         
-        # UPDATED: Captures Exports, Trade, ALMM, PLI
-        "Manufacturing": "https://news.google.com/rss/search?q=%22solar+manufacturing%22+OR+%22PV+manufacturing%22+OR+%22solar+module+production%22+OR+%22solar+exports%22+OR+ALMM+OR+PLI+OR+%22basic+customs+duty%22+when:1d&hl=en-US&gl=US&ceid=US:en",
+        "Manufacturing": "https://news.google.com/rss/search?q=(solar+manufacturing+OR+PV+manufacturing+OR+solar+module+production+OR+solar+exports+OR+ALMM+OR+PLI)+-textile+-auto+-oil+-gas+when:1d&hl=en-US&gl=US&ceid=US:en",
         
-        # UPDATED: Captures Tenders, Auctions, Power Grid, Discoms
-        "India Policy": "https://news.google.com/rss/search?q=MNRE+OR+SECI+OR+%22Power+Grid%22+OR+Transmission+OR+Tariff+OR+Discom+OR+%22Electricity+Authority%22+OR+Tender+OR+Auction+OR+Procurement+OR+PPA+when:1d&hl=en-IN&gl=IN&ceid=IN:en"
+        # STRICT India Policy: Catches Grid/Tariff but blocks Coal/Politics/Thermal
+        "India Power & Grid": "https://news.google.com/rss/search?q=(MNRE+OR+SECI+OR+Power+Grid+OR+Transmission+OR+Tariff+OR+Discom+OR+Electricity+Authority+OR+Tender+OR+Auction+OR+PPA)+-coal+-thermal+-oil+-gas+-nuclear+-election+-congress+-bjp+-cricket+when:1d&hl=en-IN&gl=IN&ceid=IN:en"
     }
     
     new_items = []
