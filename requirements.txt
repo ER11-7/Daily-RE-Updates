@@ -2,3 +2,4 @@ streamlit
 pandas
 feedparser
 streamlit-autorefresh
+plotly
